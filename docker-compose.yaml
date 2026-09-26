@@ -1,0 +1,77 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: mini_ticket_app
+
+    restart: unless-stopped
+
+    working_dir: /var/www
+
+    volumes:
+      - .:/var/www
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - mysql
+
+    networks:
+      - mini_ticket
+
+  mysql:
+    image: mysql:8.0
+
+    container_name: mini_ticket_mysql
+
+    restart: unless-stopped
+
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    networks:
+      - mini_ticket
+
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+
+    container_name: mini_ticket_phpmyadmin
+
+    restart: unless-stopped
+
+    ports:
+      - "8081:80"
+
+    environment:
+      PMA_HOST: ${DB_HOST}
+      PMA_PORT: ${DB_PORT}
+      PMA_USER: root
+      PMA_PASSWORD: ${DB_ROOT_PASSWORD}
+
+    depends_on:
+      - mysql
+
+    networks:
+      - mini_ticket
+
+networks:
+  mini_ticket:
+
+
+volumes:
+  mysql_data:

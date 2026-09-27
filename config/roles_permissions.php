@@ -95,6 +95,8 @@ return [
         'scan_attendance' => 'scan_attendance',
         'manual_attendance' => 'manual_attendance',
         'view_any_attendance' => 'view_any_attendance',
+        'create_attendance' => 'create_attendance',
+        'edit_attendance' => 'edit_attendance',
 
         // Notifications
         'view_notification' => 'view_notification',
@@ -152,6 +154,7 @@ return [
 
             // Audit
             'view_audit_log', 'view_any_audit_log',
+            'create_attendance' , 'edit_attendance'
         ],
 
         'Hall Manager' => [

@@ -21,4 +21,12 @@ class EventSeatPriceRepository
             ->where('seat_id', $seatId)
             ->value('price');
     }
+
+    public function countPricedSeats($eventId, $seatIds): int
+    {
+        return EventSeatPrice::query()
+            ->where('event_id', $eventId)
+            ->whereIn('seat_id', $seatIds)
+            ->count();
+    }
 }

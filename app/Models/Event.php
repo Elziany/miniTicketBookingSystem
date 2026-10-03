@@ -44,6 +44,7 @@ class Event extends Model
             'approval_window_hours' => 'integer',
             'custom_refund_policy'  => 'array',
             'status'                => EventStatus::class,
+            'approval_mode'         => \App\Enum\ApprovalMode::class,
         ];
     }
 
@@ -53,7 +54,7 @@ class Event extends Model
     protected function isActive(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->status === 'started',
+            get: fn () => $this->status === EventStatus::STARTED,
         );
     }
 

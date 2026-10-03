@@ -48,7 +48,23 @@ class User extends Authenticatable implements FilamentUser
         ]);
     }
 
-    public function manager(){
-        return $this->belongsTo(User::class , 'manager_id' , 'id');
+    public function manager()
+    {
+        return $this->belongsTo(User::class, 'manager_id', 'id');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(User::class, 'manager_id');
+    }
+
+    public function halls()
+    {
+        return $this->belongsToMany(Hall::class, 'hall_agent');
+    }
+
+    public function devices()
+    {
+        return $this->hasMany(UserDevice::class);
     }
 }

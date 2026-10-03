@@ -12,4 +12,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 Schedule::job(new SendEventRemindersJob)->everyMinute();
 Schedule::job(new ExpirePendingApprovalsJob)->everyMinute();
+Schedule::job(new \App\Jobs\ExpireHeldReservationsJob)->everyMinute();
 Schedule::job(new SendPostEventFeedbackJob)->everyMinute();

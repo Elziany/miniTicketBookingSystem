@@ -19,7 +19,6 @@ class AttendanceService
         int $agentId
     ) {
         $reservation = $this->validateReservationForCheckIn($reservationRef);
-
         return $this->attendanceRepository->createAttendance([
             'reservation_id' => $reservation->id,
             'checked_in_by' => $agentId,
@@ -62,7 +61,11 @@ class AttendanceService
             ]);
         }
 
-        if ($reservation->status !== 'confirmed') {
+        $status = $reservation->status instanceof \App\Enum\ReservationStatus
+            ? $reservation->status
+            : \App\Enum\ReservationStatus::from((string) $reservation->status);
+
+        if ($status !== \App\Enum\ReservationStatus::CONFIRMED) {
             throw ValidationException::withMessages([
                 'reservation_reference' => 'This reservation is not valid for check-in.',
             ]);
@@ -75,10 +78,14 @@ class AttendanceService
         }
 
 
-        if (! in_array($reservation->event->status, [
+        $eventStatus = $reservation->event->status instanceof EventStatus
+            ? $reservation->event->status
+            : EventStatus::from((string) $reservation->event->status);
+
+        if (! in_array($eventStatus, [
             EventStatus::STARTED,
             EventStatus::READY_TO_START,
-        ])) {
+        ], true)) {
             throw ValidationException::withMessages([
                 'reservation_reference' => 'Check-in is not available for this event.',
             ]);

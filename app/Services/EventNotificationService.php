@@ -53,7 +53,7 @@ class EventNotificationService extends PushNotificationService
             data: [
                 'type' => 'feedback_request',
                 'event_id' => (string) $reservation->event_id,
-                'order_reference' => $reservation->order?->reference ?? '',
+                'order_reference' => $reservation->order?->order_reference ?? '',
             ],
             emailSubject: "Rate your experience at {$reservation->event->name}"
         );

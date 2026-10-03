@@ -12,6 +12,11 @@ class SeatService {
         return $availableSeats;
     }
 
+    public function countAvailableSeats($event): int
+    {
+        return $this->seatRepository->countAvailableSeats($event);
+    }
+
     public function lockSeatsForReservation($eventId, $seatIds) {
         $event = $this->eventService->getEventById($eventId);
         return $this->seatRepository->lockSeatsForReservation($event, $seatIds);

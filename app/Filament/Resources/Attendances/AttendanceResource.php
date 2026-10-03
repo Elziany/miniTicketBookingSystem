@@ -8,7 +8,6 @@ use App\Filament\Resources\Attendances\Pages\EditAttendance;
 use App\Filament\Resources\Attendances\Pages\ListAttendances;
 use App\Filament\Resources\Attendances\Schemas\AttendanceForm;
 use App\Filament\Resources\Attendances\Tables\AttendancesTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\Attendance;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -16,14 +15,16 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Override;
+use UnitEnum;
 
 class AttendanceResource extends Resource
 {
-    use AuthorizesPermissions ;
 
     protected static ?string $model = Attendance::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Order managment";
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {
@@ -40,11 +41,6 @@ class AttendanceResource extends Resource
         return [
             //
         ];
-    }
-    #[Override]
-    public static function getPermissionDomain(): string
-    {
-        return 'attendance';
     }
 
     public static function getPages(): array

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\ReservationStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,7 @@ class Reservation extends Model
         'refunded_amount',
         'cancellation_reason',
         'rejection_reason',
-        'feedback_requested_at'
+        'feedback_requested_at',
     ];
 
     /**
@@ -40,7 +41,8 @@ class Reservation extends Model
             'price_paid'      => 'decimal:2',
             'refunded_amount' => 'decimal:2',
             'expires_at'      => 'datetime',
-            'feedback_requested_at' => 'datetime'
+            'feedback_requested_at' => 'datetime',
+            'status' => ReservationStatus::class,
         ];
     }
 
@@ -50,7 +52,7 @@ class Reservation extends Model
     protected function isConfirmed(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->status === 'confirmed',
+            get: fn () => $this->status === ReservationStatus::CONFIRMED,
         );
     }
 

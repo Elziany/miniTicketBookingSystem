@@ -7,20 +7,21 @@ use App\Filament\Resources\Halls\Pages\EditHall;
 use App\Filament\Resources\Halls\Pages\ListHalls;
 use App\Filament\Resources\Halls\Schemas\HallForm;
 use App\Filament\Resources\Halls\Tables\HallsTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\Hall;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class HallResource extends Resource
 {
-    use AuthorizesPermissions;
     protected static ?string $model = Hall::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Hall managment";
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
@@ -38,10 +39,6 @@ class HallResource extends Resource
             //
         ];
     }
-    public static function getPermissionDomain(): string {
-        return "hall";
-    }
-
     public static function getPages(): array
     {
         return [

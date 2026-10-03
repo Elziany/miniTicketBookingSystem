@@ -12,10 +12,10 @@ class ReservationNotificationService extends PushNotificationService
         $this->sendToUser(
             user: $reservation->user_id,
             title: 'Reservation Confirmed!',
-            body: "Your reservation {$reservation->reference} for '{$reservation->event->name}' is confirmed.",
+            body: "Your reservation {$reservation->reservation_reference} for '{$reservation->event->name}' is confirmed.",
             data: [
                 'type' => 'reservation_confirmed',
-                'reservation_reference' => $reservation->reference,
+                'reservation_reference' => $reservation->reservation_reference,
                 'event_id' => (string) $reservation->event_id,
             ],
             emailSubject: 'Your Reservation is Confirmed'
@@ -27,10 +27,10 @@ class ReservationNotificationService extends PushNotificationService
         $this->sendToUser(
             user: $reservation->user_id,
             title: 'Reservation Rejected',
-            body: "Your reservation {$reservation->reference} for '{$reservation->event->name}' was rejected. Reason: {$reason}",
+            body: "Your reservation {$reservation->reservation_reference} for '{$reservation->event->name}' was rejected. Reason: {$reason}",
             data: [
                 'type' => 'reservation_rejected',
-                'reservation_reference' => $reservation->reference,
+                'reservation_reference' => $reservation->reservation_reference,
                 'reason' => $reason,
             ],
             emailSubject: 'Update on Your Reservation Request'
@@ -43,10 +43,10 @@ class ReservationNotificationService extends PushNotificationService
         $this->sendToUser(
             user: $reservation->user_id,
             title: 'Reservation Expired',
-            body: "Your pending reservation {$reservation->reference} for '{$reservation->event->name}' has expired as it was not processed in time.",
+            body: "Your pending reservation {$reservation->reservation_reference} for '{$reservation->event->name}' has expired as it was not processed in time.",
             data: [
                 'type' => 'reservation_expired',
-                'reservation_reference' => $reservation->reference,
+                'reservation_reference' => $reservation->reservation_reference,
             ],
             emailSubject: 'Reservation Expired'
         );

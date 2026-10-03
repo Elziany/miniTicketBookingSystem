@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enum\CheckInType;
 use App\Models\Attendance;
 use App\Traits\AuditLogTrait;
 
@@ -11,8 +12,12 @@ class AttendanceObserver
 
     public function created(Attendance $attendance): void
     {
-        $action = $attendance->method === 'manual'
-            ? 'attendance.manaual_approve'
+        $type = $attendance->check_in_type instanceof CheckInType
+            ? $attendance->check_in_type
+            : CheckInType::from((string) $attendance->check_in_type);
+
+        $action = $type === CheckInType::MANUAL
+            ? 'attendance.manual'
             : 'attendance.qr_scan';
 
         $this->logAudit(
@@ -21,14 +26,12 @@ class AttendanceObserver
             oldValues: null,
             newValues: [
                 'reservation_id' => $attendance->reservation_id,
-                'event_id' => $attendance->event_id,
-                'user_id' => $attendance->user_id,
-                'scanned_by_id' => $attendance->scanned_by_id,
-                'method' => $attendance->method,
-                'notes' => $attendance->notes,
+                'checked_in_by' => $attendance->checked_in_by,
+                'check_in_type' => $type->value,
+                'manual_check_in_note' => $attendance->manual_check_in_note,
                 'checked_in_at' => $attendance->checked_in_at?->toDateTimeString(),
             ],
-            authoritySource: $attendance->method === 'manual' ? 'hierarchy' : 'global_permission'
+            authoritySource: $type === CheckInType::MANUAL ? 'hierarchy' : 'direct_permission'
         );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enum\ReservationStatus;
 use App\Models\Reservation;
 use App\Traits\AuditLogTrait;
 
@@ -11,21 +12,28 @@ class ReservationObserver
 
     public function updated(Reservation $reservation): void
     {
-        $trackedFields = ['status', 'total_amount', 'seat_id', 'agent_id'];
+        $trackedFields = ['status', 'seat_id', 'price_paid', 'refunded_amount', 'qr_code_path'];
 
         if (! $reservation->wasChanged($trackedFields)) {
             return;
         }
 
-        $changes = $reservation->getChanges();
+        $changes = collect($reservation->getChanges())
+            ->only($trackedFields)
+            ->all();
+
         $oldValues = [];
         foreach (array_keys($changes) as $field) {
             $oldValues[$field] = $reservation->getOriginal($field);
         }
 
+        $status = $reservation->status instanceof ReservationStatus
+            ? $reservation->status->value
+            : $reservation->status;
+
         $this->logAudit(
             model: $reservation,
-            action: 'reservation.' . $reservation->status,
+            action: 'reservation.'.$status,
             oldValues: $oldValues,
             newValues: $changes,
             authoritySource: $this->resolveAuthoritySource()
@@ -37,13 +45,17 @@ class ReservationObserver
         $user = auth()->user();
 
         if (! $user) {
-            return 'system';
+            return 'direct_permission';
         }
 
         if ($user->hasRole('Agent') || $user->hasRole('Hall Manager')) {
             return 'hierarchy';
         }
 
-        return 'global_permission';
+        if (app(\App\Services\HallAccessService::class)->hasGlobalPermission($user, 'Update:Reservation')) {
+            return 'global_permission';
+        }
+
+        return 'direct_permission';
     }
 }

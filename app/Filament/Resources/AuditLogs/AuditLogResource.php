@@ -7,7 +7,6 @@ use App\Filament\Resources\AuditLogs\Pages\EditAuditLog;
 use App\Filament\Resources\AuditLogs\Pages\ListAuditLogs;
 use App\Filament\Resources\AuditLogs\Schemas\AuditLogForm;
 use App\Filament\Resources\AuditLogs\Tables\AuditLogsTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\AuditLog;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -17,7 +16,6 @@ use Filament\Tables\Table;
 
 class AuditLogResource extends Resource
 {
-    use AuthorizesPermissions;
     protected static ?string $model = AuditLog::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -38,12 +36,6 @@ class AuditLogResource extends Resource
             //
         ];
     }
-
-    public static function getPermissionDomain(): string
-    {
-        return 'audit_log';
-    }
-
     public static function getPages(): array
     {
         return [

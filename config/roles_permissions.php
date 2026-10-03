@@ -7,186 +7,625 @@ return [
     | Master Permissions Map
     |--------------------------------------------------------------------------
     |
-    | Central definition of all system permissions grouped by domain module.
+    | Shield-generated CRUD permissions use:
+    |
+    | ViewAny:Model
+    | View:Model
+    | Create:Model
+    | Update:Model
+    | Delete:Model
+    |
+    | Custom business permissions use the same convention:
+    |
+    | Publish:Event
+    | Approve:Reservation
+    | Refund:Order
     |
     */
 
     'permissions' => [
-        // Users
-        'view_user' => 'view_user',
-        'view_any_user' => 'view_any_user',
-        'create_user' => 'create_user',
-        'edit_user' => 'edit_user',
-        'delete_user' => 'delete_user',
 
-        // Roles & Permissions
-        'view_role' => 'view_role',
-        'view_any_role' => 'view_any_role',
-        'create_role' => 'create_role',
-        'edit_role' => 'edit_role',
-        'delete_role' => 'delete_role',
-        'view_permission' => 'view_permission',
-        'manage_permission' => 'manage_permission',
+        /*
+        |--------------------------------------------------------------------------
+        | Users
+        |--------------------------------------------------------------------------
+        */
 
-        // System Settings
-        'view_setting' => 'view_setting',
-        'edit_setting' => 'edit_setting',
+        'ViewAny:User' => 'ViewAny:User',
+        'View:User' => 'View:User',
+        'Create:User' => 'Create:User',
+        'Update:User' => 'Update:User',
+        'Delete:User' => 'Delete:User',
 
-        // Halls
-        'view_hall' => 'view_hall',
-        'view_any_hall' => 'view_any_hall',
-        'create_hall' => 'create_hall',
-        'edit_hall' => 'edit_hall',
-        'delete_hall' => 'delete_hall',
+        /*
+        |--------------------------------------------------------------------------
+        | Roles
+        |--------------------------------------------------------------------------
+        */
 
-        // Seats
-        'view_seat' => 'view_seat',
-        'view_any_seat' => 'view_any_seat',
-        'create_seat' => 'create_seat',
-        'edit_seat' => 'edit_seat',
-        'delete_seat' => 'delete_seat',
+        'ViewAny:Role' => 'ViewAny:Role',
+        'View:Role' => 'View:Role',
+        'Create:Role' => 'Create:Role',
+        'Update:Role' => 'Update:Role',
+        'Delete:Role' => 'Delete:Role',
 
-        // Agents / Hierarchy
-        'view_agent' => 'view_agent',
-        'view_any_agent' => 'view_any_agent',
-        'create_agent' => 'create_agent',
-        'edit_agent' => 'edit_agent',
-        'delete_agent' => 'delete_agent',
-        'assign_agent_hall' => 'assign_agent_hall',
-        'manage_agent_hierarchy' => 'manage_agent_hierarchy',
+        /*
+        |--------------------------------------------------------------------------
+        | Permissions
+        |--------------------------------------------------------------------------
+        */
 
-        // Events
-        'view_event' => 'view_event',
-        'view_any_event' => 'view_any_event',
-        'create_event' => 'create_event',
-        'edit_event' => 'edit_event',
-        'reschedule_event' => 'reschedule_event',
-        'delete_event' => 'delete_event',
-        'publish_event' => 'publish_event',
-        'cancel_event' => 'cancel_event',
-        'start_event' => 'start_event',
-        'end_event' => 'end_event',
+        'ViewAny:Permission' => 'ViewAny:Permission',
+        'View:Permission' => 'View:Permission',
+        'Create:Permission' => 'Create:Permission',
+        'Update:Permission' => 'Update:Permission',
+        'Delete:Permission' => 'Delete:Permission',
 
-        // Pricing
-        'view_event_price' => 'view_event_price',
-        'create_event_price' => 'create_event_price',
-        'edit_event_price' => 'edit_event_price',
-        'delete_event_price' => 'delete_event_price',
+        'Manage:Permission' => 'Manage:Permission',
 
-        // Reservations
-        'view_reservation' => 'view_reservation',
-        'view_any_reservation' => 'view_any_reservation',
-        'create_reservation' => 'create_reservation',
-        'edit_reservation' => 'edit_reservation',
-        'cancel_reservation' => 'cancel_reservation',
-        'view_pending_reservation' => 'view_pending_reservation',
-        'approve_reservation' => 'approve_reservation',
-        'reject_reservation' => 'reject_reservation',
+        /*
+        |--------------------------------------------------------------------------
+        | System Configurations
+        |--------------------------------------------------------------------------
+        */
 
-        // Orders
-        'view_order' => 'view_order',
-        'view_any_order' => 'view_any_order',
-        'create_order' => 'create_order',
-        'cancel_order' => 'cancel_order',
-        'refund_order' => 'refund_order',
+        'ViewAny:SystemConfiguration' => 'ViewAny:SystemConfiguration',
+        'View:SystemConfiguration' => 'View:SystemConfiguration',
+        'Create:SystemConfiguration' => 'Create:SystemConfiguration',
+        'Update:SystemConfiguration' => 'Update:SystemConfiguration',
+        'Delete:SystemConfiguration' => 'Delete:SystemConfiguration',
 
-        // Attendance
-        'view_attendance' => 'view_attendance',
-        'scan_attendance' => 'scan_attendance',
-        'manual_attendance' => 'manual_attendance',
-        'view_any_attendance' => 'view_any_attendance',
-        'create_attendance' => 'create_attendance',
-        'edit_attendance' => 'edit_attendance',
+        /*
+        |--------------------------------------------------------------------------
+        | Halls
+        |--------------------------------------------------------------------------
+        */
 
-        // Notifications
-        'view_notification' => 'view_notification',
-        'send_notification' => 'send_notification',
+        'ViewAny:Hall' => 'ViewAny:Hall',
+        'View:Hall' => 'View:Hall',
+        'Create:Hall' => 'Create:Hall',
+        'Update:Hall' => 'Update:Hall',
+        'Delete:Hall' => 'Delete:Hall',
 
-        // Feedback
-        'view_feedback' => 'view_feedback',
-        'view_any_feedback' => 'view_any_feedback',
-        'create_feedback_question' => 'create_feedback_question',
-        'edit_feedback_question' => 'edit_feedback_question',
-        'delete_feedback_question' => 'delete_feedback_question',
-        'create_feedback' => 'create_feedback',
-        'edit_feedback' => 'edit_feedback',
-        'view_feedback_question' => 'view_feedback_question' ,
-        'view_any_feedback_question' => 'view_any_feedback_question',
+        /*
+        |--------------------------------------------------------------------------
+        | Seats
+        |--------------------------------------------------------------------------
+        */
 
+        'ViewAny:Seat' => 'ViewAny:Seat',
+        'View:Seat' => 'View:Seat',
+        'Create:Seat' => 'Create:Seat',
+        'Update:Seat' => 'Update:Seat',
+        'Delete:Seat' => 'Delete:Seat',
 
-        // Audit
-        'view_audit_log' => 'view_audit_log',
-        'view_any_audit_log' => 'view_any_audit_log',
+        /*
+        |--------------------------------------------------------------------------
+        | Agents
+        |--------------------------------------------------------------------------
+        |
+        | Add these when AgentResource exists.
+        |
+        */
+
+        'ViewAny:Agent' => 'ViewAny:Agent',
+        'View:Agent' => 'View:Agent',
+        'Create:Agent' => 'Create:Agent',
+        'Update:Agent' => 'Update:Agent',
+        'Delete:Agent' => 'Delete:Agent',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Agent Business Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        'Assign:AgentHall' => 'Assign:AgentHall',
+        'Manage:AgentHierarchy' => 'Manage:AgentHierarchy',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Events
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Event' => 'ViewAny:Event',
+        'View:Event' => 'View:Event',
+        'Create:Event' => 'Create:Event',
+        'Update:Event' => 'Update:Event',
+        'Delete:Event' => 'Delete:Event',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Event Business Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        'Reschedule:Event' => 'Reschedule:Event',
+        'Publish:Event' => 'Publish:Event',
+        'Cancel:Event' => 'Cancel:Event',
+        'Start:Event' => 'Start:Event',
+        'End:Event' => 'End:Event',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Event Seat Prices
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:EventSeatPrice' => 'ViewAny:EventSeatPrice',
+        'View:EventSeatPrice' => 'View:EventSeatPrice',
+        'Create:EventSeatPrice' => 'Create:EventSeatPrice',
+        'Update:EventSeatPrice' => 'Update:EventSeatPrice',
+        'Delete:EventSeatPrice' => 'Delete:EventSeatPrice',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reservations
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Reservation' => 'ViewAny:Reservation',
+        'View:Reservation' => 'View:Reservation',
+        'Create:Reservation' => 'Create:Reservation',
+        'Update:Reservation' => 'Update:Reservation',
+        'Delete:Reservation' => 'Delete:Reservation',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reservation Business Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        'Cancel:Reservation' => 'Cancel:Reservation',
+        'ViewPending:Reservation' => 'ViewPending:Reservation',
+        'Approve:Reservation' => 'Approve:Reservation',
+        'Reject:Reservation' => 'Reject:Reservation',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Orders
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Order' => 'ViewAny:Order',
+        'View:Order' => 'View:Order',
+        'Create:Order' => 'Create:Order',
+        'Update:Order' => 'Update:Order',
+        'Delete:Order' => 'Delete:Order',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Order Business Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        'Cancel:Order' => 'Cancel:Order',
+        'Refund:Order' => 'Refund:Order',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Attendance
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Attendance' => 'ViewAny:Attendance',
+        'View:Attendance' => 'View:Attendance',
+        'Create:Attendance' => 'Create:Attendance',
+        'Update:Attendance' => 'Update:Attendance',
+        'Delete:Attendance' => 'Delete:Attendance',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Attendance Business Permissions
+        |--------------------------------------------------------------------------
+        */
+
+        'Scan:Attendance' => 'Scan:Attendance',
+        'Manual:Attendance' => 'Manual:Attendance',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Event Feedback
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:EventFeedback' => 'ViewAny:EventFeedback',
+        'View:EventFeedback' => 'View:EventFeedback',
+        'Create:EventFeedback' => 'Create:EventFeedback',
+        'Update:EventFeedback' => 'Update:EventFeedback',
+        'Delete:EventFeedback' => 'Delete:EventFeedback',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Feedback Questions
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:FeedbackQuestion' => 'ViewAny:FeedbackQuestion',
+        'View:FeedbackQuestion' => 'View:FeedbackQuestion',
+        'Create:FeedbackQuestion' => 'Create:FeedbackQuestion',
+        'Update:FeedbackQuestion' => 'Update:FeedbackQuestion',
+        'Delete:FeedbackQuestion' => 'Delete:FeedbackQuestion',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Feedback
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Feedback' => 'ViewAny:Feedback',
+        'View:Feedback' => 'View:Feedback',
+        'Create:Feedback' => 'Create:Feedback',
+        'Update:Feedback' => 'Update:Feedback',
+        'Delete:Feedback' => 'Delete:Feedback',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Audit Logs
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:AuditLog' => 'ViewAny:AuditLog',
+        'View:AuditLog' => 'View:AuditLog',
+        'Create:AuditLog' => 'Create:AuditLog',
+        'Update:AuditLog' => 'Update:AuditLog',
+        'Delete:AuditLog' => 'Delete:AuditLog',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Notifications
+        |--------------------------------------------------------------------------
+        */
+
+        'ViewAny:Notification' => 'ViewAny:Notification',
+        'View:Notification' => 'View:Notification',
+        'Create:Notification' => 'Create:Notification',
+        'Update:Notification' => 'Update:Notification',
+        'Delete:Notification' => 'Delete:Notification',
+
+        'Send:Notification' => 'Send:Notification',
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Role Assignments
+    | Role Permissions
     |--------------------------------------------------------------------------
     |
-    | Maps each role to its specific permission array.
+    | These roles use the exact permission names checked by the Policies.
     |
     */
 
     'role_permissions' => [
 
+        /*
+        |--------------------------------------------------------------------------
+        | Admin
+        |--------------------------------------------------------------------------
+        */
+
         'Admin' => [
-            'view_user', 'view_any_user', 'create_user', 'edit_user', 'delete_user',
-            'view_role', 'view_any_role', 'create_role', 'edit_role', 'delete_role', 'view_permission', 'manage_permission',
-            'view_setting', 'edit_setting',
 
-            'view_hall', 'view_any_hall', 'create_hall', 'edit_hall', 'delete_hall',
-            'view_seat', 'view_any_seat', 'create_seat', 'edit_seat', 'delete_seat',
+            // Users
+            'ViewAny:User',
+            'View:User',
+            'Create:User',
+            'Update:User',
+            'Delete:User',
 
-            'view_agent', 'view_any_agent', 'create_agent', 'edit_agent', 'delete_agent', 'assign_agent_hall', 'manage_agent_hierarchy',
+            // Roles
+            'ViewAny:Role',
+            'View:Role',
+            'Create:Role',
+            'Update:Role',
+            'Delete:Role',
 
-            'view_event', 'view_any_event', 'create_event', 'edit_event', 'reschedule_event', 'delete_event', 'publish_event', 'cancel_event', 'start_event', 'end_event',
-            'view_event_price', 'create_event_price', 'edit_event_price', 'delete_event_price',
+            // Permissions
+            'ViewAny:Permission',
+            'View:Permission',
+            'Create:Permission',
+            'Update:Permission',
+            'Delete:Permission',
+            'Manage:Permission',
 
-            'view_reservation', 'view_any_reservation', 'create_reservation', 'edit_reservation', 'cancel_reservation', 'view_pending_reservation', 'approve_reservation', 'reject_reservation',
-            'view_order', 'view_any_order', 'create_order', 'cancel_order', 'refund_order',
+            // System configuration
+            'ViewAny:SystemConfiguration',
+            'View:SystemConfiguration',
+            'Create:SystemConfiguration',
+            'Update:SystemConfiguration',
+            'Delete:SystemConfiguration',
 
-            'view_attendance', 'view_any_attendance', 'scan_attendance', 'manual_attendance',
+            // Halls
+            'ViewAny:Hall',
+            'View:Hall',
+            'Create:Hall',
+            'Update:Hall',
+            'Delete:Hall',
 
-            'view_notification', 'send_notification',
+            // Seats
+            'ViewAny:Seat',
+            'View:Seat',
+            'Create:Seat',
+            'Update:Seat',
+            'Delete:Seat',
 
-            'view_feedback', 'view_any_feedback', 'create_feedback' , 'edit_feedback','view_feedback_question' , 'view_any_feedback_question'  ,'create_feedback_question', 'edit_feedback_question', 'delete_feedback_question',
+            // Agents
+            'ViewAny:Agent',
+            'View:Agent',
+            'Create:Agent',
+            'Update:Agent',
+            'Delete:Agent',
+            'Assign:AgentHall',
+            'Manage:AgentHierarchy',
 
-            // Audit
-            'view_audit_log', 'view_any_audit_log',
-            'create_attendance' , 'edit_attendance'
+            // Events
+            'ViewAny:Event',
+            'View:Event',
+            'Create:Event',
+            'Update:Event',
+            'Delete:Event',
+
+            'Reschedule:Event',
+            'Publish:Event',
+            'Cancel:Event',
+            'Start:Event',
+            'End:Event',
+
+            // Event seat prices
+            'ViewAny:EventSeatPrice',
+            'View:EventSeatPrice',
+            'Create:EventSeatPrice',
+            'Update:EventSeatPrice',
+            'Delete:EventSeatPrice',
+
+            // Reservations
+            'ViewAny:Reservation',
+            'View:Reservation',
+            'Create:Reservation',
+            'Update:Reservation',
+            'Delete:Reservation',
+
+            'Cancel:Reservation',
+            'ViewPending:Reservation',
+            'Approve:Reservation',
+            'Reject:Reservation',
+
+            // Orders
+            'ViewAny:Order',
+            'View:Order',
+            'Create:Order',
+            'Update:Order',
+            'Delete:Order',
+
+            'Cancel:Order',
+            'Refund:Order',
+
+            // Attendance
+            'ViewAny:Attendance',
+            'View:Attendance',
+            'Create:Attendance',
+            'Update:Attendance',
+            'Delete:Attendance',
+
+            'Scan:Attendance',
+            'Manual:Attendance',
+
+            // Event feedback
+            'ViewAny:EventFeedback',
+            'View:EventFeedback',
+            'Create:EventFeedback',
+            'Update:EventFeedback',
+            'Delete:EventFeedback',
+
+            // Feedback questions
+            'ViewAny:FeedbackQuestion',
+            'View:FeedbackQuestion',
+            'Create:FeedbackQuestion',
+            'Update:FeedbackQuestion',
+            'Delete:FeedbackQuestion',
+
+            // Feedback
+            'ViewAny:Feedback',
+            'View:Feedback',
+            'Create:Feedback',
+            'Update:Feedback',
+            'Delete:Feedback',
+
+            // Notifications
+            'ViewAny:Notification',
+            'View:Notification',
+            'Create:Notification',
+            'Update:Notification',
+            'Delete:Notification',
+            'Send:Notification',
+
+            // Audit logs
+            'ViewAny:AuditLog',
+            'View:AuditLog',
+            'Create:AuditLog',
+            'Update:AuditLog',
+            'Delete:AuditLog',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Hall Manager
+        |--------------------------------------------------------------------------
+        */
 
         'Hall Manager' => [
-            'view_hall', 'view_any_hall', 'edit_hall',
-            'view_seat', 'view_any_seat', 'create_seat', 'edit_seat',
-            'view_agent', 'view_any_agent', 'assign_agent_hall', 'manage_agent_hierarchy',
-            'view_event', 'view_any_event', 'create_event', 'edit_event', 'reschedule_event', 'publish_event', 'cancel_event', 'start_event', 'end_event',
-            'view_event_price', 'create_event_price', 'edit_event_price',
-            'view_reservation', 'view_any_reservation', 'view_pending_reservation', 'approve_reservation', 'reject_reservation', 'cancel_reservation',
-            'view_order', 'view_any_order', 'cancel_order', 'refund_order',
-            'view_attendance', 'scan_attendance', 'manual_attendance', 'view_any_attendance',
-            'view_notification', 'send_notification',
-            'view_feedback', 'view_any_feedback', 'create_feedback_question', 'edit_feedback_question', 'delete_feedback_question',
-            'view_audit_log', 'view_any_audit_log',
+
+            // Halls
+            'ViewAny:Hall',
+            'View:Hall',
+            'Update:Hall',
+
+            // Seats
+            'ViewAny:Seat',
+            'View:Seat',
+            'Create:Seat',
+            'Update:Seat',
+
+            // Agents
+            'ViewAny:Agent',
+            'View:Agent',
+            'Assign:AgentHall',
+            'Manage:AgentHierarchy',
+
+            // Events
+            'ViewAny:Event',
+            'View:Event',
+            'Create:Event',
+            'Update:Event',
+
+            'Reschedule:Event',
+            'Publish:Event',
+            'Cancel:Event',
+            'Start:Event',
+            'End:Event',
+
+            // Pricing
+            'ViewAny:EventSeatPrice',
+            'View:EventSeatPrice',
+            'Create:EventSeatPrice',
+            'Update:EventSeatPrice',
+
+            // Reservations
+            'ViewAny:Reservation',
+            'View:Reservation',
+            'ViewPending:Reservation',
+            'Approve:Reservation',
+            'Reject:Reservation',
+            'Cancel:Reservation',
+
+            // Orders
+            'ViewAny:Order',
+            'View:Order',
+            'Cancel:Order',
+            'Refund:Order',
+
+            // Attendance
+            'ViewAny:Attendance',
+            'View:Attendance',
+            'Scan:Attendance',
+            'Manual:Attendance',
+
+            // Notifications
+            'ViewAny:Notification',
+            'View:Notification',
+            'Send:Notification',
+
+            // Feedback
+            'ViewAny:Feedback',
+            'View:Feedback',
+
+            // Feedback questions
+            'ViewAny:FeedbackQuestion',
+            'View:FeedbackQuestion',
+            'Create:FeedbackQuestion',
+            'Update:FeedbackQuestion',
+            'Delete:FeedbackQuestion',
+
+            // Audit
+            'ViewAny:AuditLog',
+            'View:AuditLog',
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Event Manager
+        |--------------------------------------------------------------------------
+        */
 
         'Event Manager' => [
-            'view_hall', 'view_any_hall', 'view_seat', 'view_any_seat',
-            'view_event', 'view_any_event', 'create_event', 'edit_event', 'reschedule_event', 'delete_event', 'publish_event', 'cancel_event', 'start_event', 'end_event',
-            'view_event_price', 'create_event_price', 'edit_event_price', 'delete_event_price',
-            'view_reservation', 'view_any_reservation',
-            'view_order', 'view_any_order',
-            'view_feedback', 'view_any_feedback', 'create_feedback_question', 'edit_feedback_question', 'delete_feedback_question',
+
+            // Halls
+            'ViewAny:Hall',
+            'View:Hall',
+
+            // Seats
+            'ViewAny:Seat',
+            'View:Seat',
+
+            // Events
+            'ViewAny:Event',
+            'View:Event',
+            'Create:Event',
+            'Update:Event',
+            'Delete:Event',
+
+            'Reschedule:Event',
+            'Publish:Event',
+            'Cancel:Event',
+            'Start:Event',
+            'End:Event',
+
+            // Pricing
+            'ViewAny:EventSeatPrice',
+            'View:EventSeatPrice',
+            'Create:EventSeatPrice',
+            'Update:EventSeatPrice',
+            'Delete:EventSeatPrice',
+
+            // Reservations
+            'ViewAny:Reservation',
+            'View:Reservation',
+
+            // Orders
+            'ViewAny:Order',
+            'View:Order',
+
+            // Feedback
+            'ViewAny:Feedback',
+            'View:Feedback',
+
+            // Feedback questions
+            'ViewAny:FeedbackQuestion',
+            'View:FeedbackQuestion',
+            'Create:FeedbackQuestion',
+            'Update:FeedbackQuestion',
+            'Delete:FeedbackQuestion',
         ],
 
+        /*
+        |--------------------------------------------------------------------------
+        | Agent
+        |--------------------------------------------------------------------------
+        */
+
         'Agent' => [
-            'view_event', 'view_any_event',
-            'view_hall', 'view_seat', 'view_any_seat',
-            'view_agent',
-            'view_reservation', 'view_any_reservation', 'view_pending_reservation', 'approve_reservation', 'reject_reservation', 'cancel_reservation',
-            'view_order', 'view_any_order',
-            'view_attendance', 'scan_attendance', 'manual_attendance', 'view_any_attendance',
+
+            // Events
+            'ViewAny:Event',
+            'View:Event',
+
+            // Halls
+            'View:Hall',
+
+            // Seats
+            'ViewAny:Seat',
+            'View:Seat',
+
+            // Agent
+            'View:Agent',
+
+            // Reservations
+            'ViewAny:Reservation',
+            'View:Reservation',
+            'ViewPending:Reservation',
+            'Approve:Reservation',
+            'Reject:Reservation',
+            'Cancel:Reservation',
+
+            // Orders
+            'ViewAny:Order',
+            'View:Order',
+
+            // Attendance
+            'ViewAny:Attendance',
+            'View:Attendance',
+            'Scan:Attendance',
+            'Manual:Attendance',
         ],
     ],
 ];

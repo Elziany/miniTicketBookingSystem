@@ -2,8 +2,6 @@
 
 namespace App\Enum;
 
-use function CuyZ\Valinor\Compiler\return_;
-
 enum SeatType: string
 {
     case STANDARD = 'standard';

@@ -16,4 +16,9 @@ class EventSeatPriceService
     {
         return $this->eventSeatPriceRepository->getSeatPrice($eventId, $seatId);
     }
+
+    public function countPricedSeats($eventId, $seatIds): int
+    {
+        return $this->eventSeatPriceRepository->countPricedSeats($eventId, $seatIds);
+    }
 }

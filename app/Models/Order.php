@@ -29,6 +29,7 @@ class Order extends Model
     {
         return [
             'total_amount' => 'decimal:2',
+            'status' => \App\Enum\OrderStatus::class,
         ];
     }
 

@@ -7,20 +7,21 @@ use App\Filament\Resources\FeedbackQuestions\Pages\EditFeedbackQuestion;
 use App\Filament\Resources\FeedbackQuestions\Pages\ListFeedbackQuestions;
 use App\Filament\Resources\FeedbackQuestions\Schemas\FeedbackQuestionForm;
 use App\Filament\Resources\FeedbackQuestions\Tables\FeedbackQuestionsTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\FeedbackQuestion;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class FeedbackQuestionResource extends Resource
 {
-    use AuthorizesPermissions ;
     protected static ?string $model = FeedbackQuestion::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Feedback";
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
@@ -37,9 +38,6 @@ class FeedbackQuestionResource extends Resource
         return [
             //
         ];
-    }
-    public static function getPermissionDomain() : string{
-        return 'feedback_question';
     }
 
     public static function getPages(): array

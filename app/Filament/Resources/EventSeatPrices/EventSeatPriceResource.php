@@ -7,20 +7,21 @@ use App\Filament\Resources\EventSeatPrices\Pages\EditEventSeatPrice;
 use App\Filament\Resources\EventSeatPrices\Pages\ListEventSeatPrices;
 use App\Filament\Resources\EventSeatPrices\Schemas\EventSeatPriceForm;
 use App\Filament\Resources\EventSeatPrices\Tables\EventSeatPricesTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\EventSeatPrice;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class EventSeatPriceResource extends Resource
 {
-    use AuthorizesPermissions;
     protected static ?string $model = EventSeatPrice::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Event Management";
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {
@@ -38,10 +39,7 @@ class EventSeatPriceResource extends Resource
             //
         ];
     }
-    public static function getPermissionDomain(): string{
-        return 'event_price';
-    }
-
+ 
     public static function getPages(): array
     {
         return [

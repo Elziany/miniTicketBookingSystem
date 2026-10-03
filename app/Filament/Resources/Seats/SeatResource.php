@@ -7,7 +7,6 @@ use App\Filament\Resources\Seats\Pages\EditSeat;
 use App\Filament\Resources\Seats\Pages\ListSeats;
 use App\Filament\Resources\Seats\Schemas\SeatForm;
 use App\Filament\Resources\Seats\Tables\SeatsTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\Seat;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -15,13 +14,15 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Override;
+use UnitEnum;
 
 class SeatResource extends Resource
 {
-    use AuthorizesPermissions;
     protected static ?string $model = Seat::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = "Hall managment";
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
@@ -39,12 +40,6 @@ class SeatResource extends Resource
             //
         ];
     }
-    #[Override]
-    public static function getPermissionDomain(): string
-    {
-       return "seat";
-    }
-
     public static function getPages(): array
     {
         return [

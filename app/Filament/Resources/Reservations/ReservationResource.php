@@ -7,20 +7,21 @@ use App\Filament\Resources\Reservations\Pages\EditReservation;
 use App\Filament\Resources\Reservations\Pages\ListReservations;
 use App\Filament\Resources\Reservations\Schemas\ReservationForm;
 use App\Filament\Resources\Reservations\Tables\ReservationsTable;
-use App\Filament\Traits\AuthorizesPermissions;
 use App\Models\Reservation;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ReservationResource extends Resource
 {
-    use AuthorizesPermissions;
     protected static ?string $model = Reservation::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+      protected static string|UnitEnum|null $navigationGroup = "Order managment";
+    protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema
     {
@@ -37,10 +38,6 @@ class ReservationResource extends Resource
         return [
             //
         ];
-    }
-     public static function getPermissionDomain(): string
-    {
-        return 'reservation';
     }
 
     public static function getPages(): array

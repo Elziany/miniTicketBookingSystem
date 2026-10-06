@@ -44,11 +44,6 @@ class Hall extends Model
         );
     }
 
-    public function agents(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'hall_agent');
-    }
-
     public function seats(): HasMany
     {
         return $this->hasMany(Seat::class);
@@ -57,5 +52,16 @@ class Hall extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+    public function agents()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'hall_agent',
+            'hall_id',
+            'user_id'
+        )->whereHas('roles', function ($query) {
+            $query->where('name', 'agent');
+        })->withPivot('is_manager');
     }
 }

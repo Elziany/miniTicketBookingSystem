@@ -11,6 +11,10 @@ class CreateHall extends CreateRecord
     protected function afterCreate(): void
     {
         $this->record->syncSeatGrid($this->data['seat_labels'] ?? []);
+        $managerId = $this->data['manager'] ?? null;
+        if (! $managerId) {
+            return;
+        }
+        $this->record->agents()->updateExistingPivot($managerId, ['is_manager' => true]);
     }
-
 }

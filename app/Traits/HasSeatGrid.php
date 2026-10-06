@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 trait HasSeatGrid
 {
@@ -19,7 +20,6 @@ trait HasSeatGrid
             ])
             ->all();
     }
-
     public function syncSeatGrid(array $labels): void
     {
         if ($this->layout_type !== 'grid') {
@@ -29,22 +29,41 @@ trait HasSeatGrid
         $rows = (int) $this->row_count;
         $cols = (int) $this->column_count;
 
-        DB::transaction(function () use ($labels, $rows, $cols) {
-            for ($r = 0; $r < $rows; $r++) {
-                for ($c = 0; $c < $cols; $c++) {
-                    $label = trim((string) ($labels["{$r}_{$c}"] ?? ''));
+        $desired = [];
+        $seen = [];
 
-                    $this->seats()->updateOrCreate(
-                        ['position_y' => $r + 1, 'position_x' => $c + 1 , 'hall_id' => $this->id],
-                        ['label' => $label !== '' ? $label : static::defaultSeatLabel($r, $c)],
-                    );
+        for ($r = 0; $r < $rows; $r++) {
+            for ($c = 0; $c < $cols; $c++) {
+                $label = trim((string) ($labels["{$r}_{$c}"] ?? ''));
+                $label = $label !== '' ? $label : static::defaultSeatLabel($r, $c);
+
+                $key = mb_strtolower($label);
+
+                if (isset($seen[$key])) {
+                    throw ValidationException::withMessages([
+                        "data.seat_labels.{$r}_{$c}" => "Duplicate seat label \"{$label}\".",
+                    ]);
                 }
-            }
 
-            // Remove seats that fell outside a shrunken grid.
+                $seen[$key] = true;
+                $desired[] = ['y' => $r + 1, 'x' => $c + 1, 'label' => $label];
+            }
+        }
+
+        DB::transaction(function () use ($desired, $rows, $cols) {
             $this->seats()
-                ->where(fn ($q) => $q->where('position_y', '>', $rows)->orWhere('position_x', '>', $cols))
+                ->where(fn($q) => $q->where('position_y', '>', $rows)
+                    ->orWhere('position_x', '>', $cols))
                 ->delete();
+
+            $this->seats()->update(['label' => DB::raw("CONCAT('__tmp_', id)")]);
+
+            foreach ($desired as $seat) {
+                $this->seats()->updateOrCreate(
+                    ['position_y' => $seat['y'], 'position_x' => $seat['x']],
+                    ['label' => $seat['label']],
+                );
+            }
         });
     }
 }

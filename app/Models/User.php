@@ -58,13 +58,17 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(User::class, 'manager_id');
     }
 
-    public function halls()
-    {
-        return $this->belongsToMany(Hall::class, 'hall_agent');
-    }
-
     public function devices()
     {
         return $this->hasMany(UserDevice::class);
+    }
+    public function halls()
+    {
+        return $this->belongsToMany(
+            Hall::class,
+            'hall_agent',
+            'user_id',
+            'hall_id'
+        );
     }
 }
